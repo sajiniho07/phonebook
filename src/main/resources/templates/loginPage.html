@@ -7,21 +7,19 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
+    <link href="/css/mystyles.css" rel="stylesheet">
 </head>
 <body>
-<div class="hero is-primary">
+<div class="hero is-primary full-height">
     <div class="hero-body">
-        <h1 class="title has-text-centered is-size-2">Login Form in phonebook</h1>
+        <h1 class="title has-text-centered is-size-2">Sign in to Phonebook</h1>
         <div class="columns is-centered">
             <div class="column is-half">
                 <div class="notification is-light">
-                    <figure class="image container is-64x64">
-                        <img src="bulma.png">
-                    </figure>
                     <div class="field">
-                        <label class="label">Username</label>
+                        <label class="label">Username or Email</label>
                         <p class="control has-icons-left has-icons-right">
-                            <input class="input" placeholder="Email" type="email">
+                            <input class="input" placeholder="Username">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-envelope"></i>
                             </span>
@@ -36,7 +34,19 @@
                             </span>
                         </p>
                     </div>
-                    <a class="button is-info is-rounded is-outlined is-medium">Login</a>
+                    <div class="is-flex-column-center">
+                        <div class="field">
+                            <p class="control">
+                                <button class="button is-success">
+                                    Sign in
+                                </button>
+                            </p>
+                        </div>
+                        <div class="is-flex-row-start">
+                            <span>Don't have an account?</span>
+                            <a class="button is-text" href="/signUp">Sign Up</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
