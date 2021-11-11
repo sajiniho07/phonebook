@@ -1,70 +1,42 @@
 package com.phonebook.controller;
 
-import com.phonebook.helper.AlertResult;
+import com.phonebook.helper.GeneralResult;
 import com.phonebook.service.HomeService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/clients")
 public class HomeController {
+
+    private static final Logger logger = LogManager.getLogger(HomeController.class);
 
     @Autowired
     private HomeService homeService;
 
-    @GetMapping("/")
-    public String showLoginPage() {
-        return "loginPage";
-    }
-
-    @GetMapping("/signUpPage")
-    public String showSignUpPage() {
-        return "signUp";
-    }
-
-    @GetMapping("/homePage")
-    public String showHomePage() {
-        return "homePage";
-    }
-
     @PostMapping("/signUp")
-    public ModelAndView signUp(@RequestParam("name") String name,
+    public GeneralResult signUp(@RequestParam("name") String name,
                                @RequestParam("username") String username,
                                @RequestParam("password") String password,
                                @RequestParam("email") String email) {
-        ModelAndView mav = new ModelAndView();
-        AlertResult result = homeService.signUp(name, username, password, email);
-        switch (result.getAlertEnum()) {
-            case ERROR:
-            default:
-                mav.setViewName("");
-                mav.addObject("Error", result.getAlertTxt());
-                break;
-            case SUCCESS:
-                mav.setViewName("homePage");
-                break;
-        }
-        return mav;
+        GeneralResult result = homeService.signUp(name, username, password, email);
+        return result;
     }
 
     @PostMapping("/")
-    public ModelAndView loginPage(@RequestParam("username") String username,
-                                  @RequestParam("password") String password) {
-        ModelAndView mav = new ModelAndView();
-        AlertResult result = homeService.login(username, password);
-        switch (result.getAlertEnum()) {
-            case ERROR:
-            default:
-                mav.setViewName("");
-                mav.addObject("Error", result.getAlertTxt());
-                break;
-            case SUCCESS:
-                mav.setViewName("homePage");
-                break;
-        }
-        return mav;
+    public GeneralResult loginPage(@RequestParam("username") String username,
+                                   @RequestParam("password") String password) {
+        GeneralResult result = homeService.login(username, password);
+        return result;
+    }
+
+    @GetMapping("/isAlreadyLogin")
+    public Boolean isAlreadyLogin() {
+        boolean result = homeService.isAlreadyLogin();
+        String logMessage = "isAlreadyLogin, result: " + (result ? "user is AlreadyLogin." : "user is not Login.");
+        logger.info(logMessage);
+        return result;
     }
 }

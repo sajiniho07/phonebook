@@ -2,33 +2,38 @@ package com.phonebook.service;
 
 import com.phonebook.DatabaseManager;
 import com.phonebook.helper.AlertEnum;
-import com.phonebook.helper.AlertResult;
+import com.phonebook.helper.GeneralResult;
 import org.springframework.stereotype.Service;
 
 @Service
 public class HomeService {
 
-    public AlertResult login(String username, String password) {
+    public GeneralResult login(String username, String password) {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
         boolean isLogin = databaseManager.login(username, password);
-        AlertResult alertResult;
+        GeneralResult generalResult;
         if (isLogin) {
-            alertResult = new AlertResult(AlertEnum.SUCCESS, "");
+            generalResult = new GeneralResult(AlertEnum.SUCCESS.getId(), "");
         } else {
-            alertResult = new AlertResult(AlertEnum.ERROR, "Invalid username or password.");
+            generalResult = new GeneralResult(AlertEnum.ERROR.getId(), "Invalid username or password.");
         }
-        return alertResult;
+        return generalResult;
     }
 
-    public AlertResult signUp(String name, String username, String password, String email) {
+    public GeneralResult signUp(String name, String username, String password, String email) {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
         int resultCode = databaseManager.signUp(name, username, password, email);
-        AlertResult alertResult;
+        GeneralResult generalResult;
         if (resultCode > 0) {
-            alertResult = new AlertResult(AlertEnum.SUCCESS, "");
+            generalResult = new GeneralResult(AlertEnum.SUCCESS.getId(), "");
         } else {
-            alertResult = new AlertResult(AlertEnum.ERROR, "Invalid username or password.");
+            generalResult = new GeneralResult(AlertEnum.ERROR.getId(), "Invalid username or password.");
         }
-        return alertResult;
+        return generalResult;
+    }
+
+    public boolean isAlreadyLogin() {
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        return databaseManager.isAlreadyLogin();
     }
 }

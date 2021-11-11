@@ -28,6 +28,10 @@ public class DatabaseManager {
         return instance;
     }
 
+    public boolean isAlreadyLogin() {
+        return currentUserId != null;
+    }
+
     public boolean login(String username, String password) {
         Document document = userOwnerCollection.find(
                 and(eq("username", username), eq("password", password))).first();
@@ -37,6 +41,8 @@ public class DatabaseManager {
         }
         return false;
     }
+
+    // todo sign out , current user = null
 
     public int signUp(String name, String username, String password, String email) {
         int resultCode = -1;

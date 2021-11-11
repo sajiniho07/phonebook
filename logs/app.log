@@ -1,0 +1,53 @@
+[INFO ] 2021-11-11 23:00:10.255 [restartedMain] Main - Starting Main on DESKTOP-V8NF0JL with PID 1908 (D:\projects\SpringBootSample\Phonebook\target\classes started by karuon in D:\projects\SpringBootSample\Phonebook)
+[DEBUG] 2021-11-11 23:00:10.267 [restartedMain] Main - Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+[INFO ] 2021-11-11 23:00:10.268 [restartedMain] Main - No active profile set, falling back to default profiles: default
+[INFO ] 2021-11-11 23:00:14.975 [restartedMain] Main - Started Main in 5.372 seconds (JVM running for 10.127)
+[INFO ] 2021-11-11 23:00:31.813 [restartedMain] Main - Starting Main on DESKTOP-V8NF0JL with PID 12816 (D:\projects\SpringBootSample\Phonebook\target\classes started by karuon in D:\projects\SpringBootSample\Phonebook)
+[DEBUG] 2021-11-11 23:00:31.830 [restartedMain] Main - Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+[INFO ] 2021-11-11 23:00:31.831 [restartedMain] Main - No active profile set, falling back to default profiles: default
+[INFO ] 2021-11-11 23:00:34.963 [restartedMain] Main - Started Main in 3.866 seconds (JVM running for 8.243)
+[DEBUG] 2021-11-11 23:00:43.850 [http-nio-8080-exec-1] HomeController - result: 
+[INFO ] 2021-11-11 23:02:13.260 [restartedMain] Main - Starting Main on DESKTOP-V8NF0JL with PID 3904 (D:\projects\SpringBootSample\Phonebook\target\classes started by karuon in D:\projects\SpringBootSample\Phonebook)
+[DEBUG] 2021-11-11 23:02:13.272 [restartedMain] Main - Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+[INFO ] 2021-11-11 23:02:13.273 [restartedMain] Main - No active profile set, falling back to default profiles: default
+[INFO ] 2021-11-11 23:02:16.539 [restartedMain] Main - Started Main in 3.862 seconds (JVM running for 7.777)
+[DEBUG] 2021-11-11 23:02:19.182 [http-nio-8080-exec-1] HomeController - result: 
+[INFO ] 2021-11-11 23:04:53.643 [restartedMain] Main - Starting Main on DESKTOP-V8NF0JL with PID 7752 (D:\projects\SpringBootSample\Phonebook\target\classes started by karuon in D:\projects\SpringBootSample\Phonebook)
+[DEBUG] 2021-11-11 23:04:53.664 [restartedMain] Main - Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+[INFO ] 2021-11-11 23:04:53.665 [restartedMain] Main - No active profile set, falling back to default profiles: default
+[INFO ] 2021-11-11 23:04:57.134 [restartedMain] Main - Started Main in 4.226 seconds (JVM running for 7.995)
+[DEBUG] 2021-11-11 23:05:00.880 [http-nio-8080-exec-2] HomeController - result: 
+[DEBUG] 2021-11-11 23:05:11.155 [http-nio-8080-exec-1] HomeController - result: 
+2021-11-11 23:09:15,322 INFO c.p.Main [restartedMain] Starting Main on DESKTOP-V8NF0JL with PID 10040 (D:\projects\SpringBootSample\Phonebook\target\classes started by karuon in D:\projects\SpringBootSample\Phonebook)
+2021-11-11 23:09:15,335 DEBUG c.p.Main [restartedMain] Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+2021-11-11 23:09:15,336 INFO c.p.Main [restartedMain] No active profile set, falling back to default profiles: default
+2021-11-11 23:09:18,376 INFO c.p.Main [restartedMain] Started Main in 3.65 seconds (JVM running for 7.208)
+2021-11-11 23:09:52,225 DEBUG c.p.c.HomeController [http-nio-8080-exec-1] result: 
+2021-11-11 23:13:12,851 INFO c.p.Main [restartedMain] Starting Main on DESKTOP-V8NF0JL with PID 6780 (D:\projects\SpringBootSample\Phonebook\target\classes started by karuon in D:\projects\SpringBootSample\Phonebook)
+2021-11-11 23:13:12,864 DEBUG c.p.Main [restartedMain] Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+2021-11-11 23:13:12,865 INFO c.p.Main [restartedMain] No active profile set, falling back to default profiles: default
+2021-11-11 23:13:17,029 INFO c.p.Main [restartedMain] Started Main in 4.794 seconds (JVM running for 8.824)
+2021-11-11 23:13:22,006 INFO c.p.c.HomeController [http-nio-8080-exec-1] user is not Login.
+2021-11-11 23:14:26,279 INFO c.p.Main [restartedMain] Starting Main on DESKTOP-V8NF0JL with PID 9632 (D:\projects\SpringBootSample\Phonebook\target\classes started by karuon in D:\projects\SpringBootSample\Phonebook)
+2021-11-11 23:14:26,316 DEBUG c.p.Main [restartedMain] Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+2021-11-11 23:14:26,319 INFO c.p.Main [restartedMain] No active profile set, falling back to default profiles: default
+2021-11-11 23:14:30,027 INFO c.p.Main [restartedMain] Started Main in 4.862 seconds (JVM running for 8.926)
+2021-11-11 23:14:38,439 INFO c.p.c.HomeController [http-nio-8080-exec-1] isAlreadyLogin, result: 
+2021-11-11 23:17:36,150 INFO c.p.Main [restartedMain] Starting Main on DESKTOP-V8NF0JL with PID 13124 (D:\projects\SpringBootSample\Phonebook\target\classes started by karuon in D:\projects\SpringBootSample\Phonebook)
+2021-11-11 23:17:36,163 DEBUG c.p.Main [restartedMain] Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+2021-11-11 23:17:36,164 INFO c.p.Main [restartedMain] No active profile set, falling back to default profiles: default
+2021-11-11 23:17:39,842 INFO c.p.Main [restartedMain] Started Main in 4.322 seconds (JVM running for 8.094)
+2021-11-11 23:17:49,402 INFO c.p.c.HomeController [http-nio-8080-exec-1] isAlreadyLogin, result: user is not Login.
+2021-11-11 23:29:17,837 INFO c.p.Main [restartedMain] Starting Main on DESKTOP-V8NF0JL with PID 1652 (D:\projects\SpringBootSample\Phonebook\target\classes started by karuon in D:\projects\SpringBootSample\Phonebook)
+2021-11-11 23:29:17,852 DEBUG c.p.Main [restartedMain] Running with Spring Boot v2.3.1.RELEASE, Spring v5.2.7.RELEASE
+2021-11-11 23:29:17,853 INFO c.p.Main [restartedMain] No active profile set, falling back to default profiles: default
+2021-11-11 23:29:21,447 INFO c.p.Main [restartedMain] Started Main in 4.224 seconds (JVM running for 9.483)
+2021-11-11 23:29:29,624 INFO c.p.c.HomeController [http-nio-8080-exec-1] isAlreadyLogin, result: user is not Login.
+2021-11-11 23:32:14,700 INFO c.p.c.HomeController [http-nio-8080-exec-2] isAlreadyLogin, result: user is not Login.
+2021-11-11 23:32:22,403 INFO c.p.c.HomeController [http-nio-8080-exec-3] isAlreadyLogin, result: user is not Login.
+2021-11-11 23:32:45,963 INFO c.p.c.HomeController [http-nio-8080-exec-4] isAlreadyLogin, result: user is not Login.
+2021-11-11 23:32:51,273 INFO c.p.c.HomeController [http-nio-8080-exec-6] isAlreadyLogin, result: user is not Login.
+2021-11-11 23:33:01,534 INFO c.p.c.HomeController [http-nio-8080-exec-5] isAlreadyLogin, result: user is not Login.
+2021-11-11 23:49:13,596 INFO c.p.c.HomeController [http-nio-8080-exec-7] isAlreadyLogin, result: user is not Login.
+2021-11-11 23:57:45,585 INFO c.p.c.HomeController [http-nio-8080-exec-8] isAlreadyLogin, result: user is not Login.
+2021-11-12 00:25:53,876 INFO c.p.c.HomeController [http-nio-8080-exec-9] isAlreadyLogin, result: user is not Login.
