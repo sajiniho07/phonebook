@@ -32,8 +32,15 @@ public class HomeService {
         return generalResult;
     }
 
-    public boolean isAlreadyLogin() {
+    public GeneralResult isAlreadyLogin() {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
-        return databaseManager.isAlreadyLogin();
+        boolean alreadyLogin = databaseManager.isAlreadyLogin();
+        GeneralResult generalResult;
+        if (alreadyLogin) {
+            generalResult = new GeneralResult(AlertEnum.SUCCESS.getId(), "");
+        } else {
+            generalResult = new GeneralResult(AlertEnum.ERROR.getId(), "user is not Login.");
+        }
+        return generalResult;
     }
 }

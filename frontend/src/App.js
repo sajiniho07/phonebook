@@ -8,22 +8,31 @@ import CreateNewContact from './components/CreateNewContact';
 import SignUp from './components/SignUp';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import AppNavBar from "./components/AppNavBar";
+import Services from "./service/Services";
 
 class App extends Component {
-    state = {
-        isAlreadyLogin: true
-    };
 
-    async componentDidMount() {
-        const response = await fetch('/clients/isAlreadyLogin');
-        this.setState({isAlreadyLogin: response});
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAlreadyLogin: false
+        };
+    }
+
+    componentDidMount() {
+        let services = new Services();
+        services.isAlreadyLogin().then(response => response.json()).then(response => {
+            let resultCode = response.resultCode;
+            let isLoggedin = resultCode > 0;
+            this.setState({isAlreadyLogin: isLoggedin});
+        });
     }
 
     render() {
         return (
             <BrowserRouter>
                 <div>
-                    <AppNavBar isHiddenNav={!this.isAlreadyLogin}/>
+                    <AppNavBar userAlreadyLogin={this.state.isAlreadyLogin}/>
                     <Switch>
                         <Route path='/' exact component={LoginPage}/>
                         <Route path='/Home' component={Home}/>

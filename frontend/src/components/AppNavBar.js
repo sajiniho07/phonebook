@@ -1,14 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 
-export default class AppNavBar extends Component {
-    constructor(props) {
-        super(props);
-    }
+function AppNavBar(props) {
 
-    render() {
-        const { isHiddenNav } = this.props;
-        return <div className={`navbar is-fixed-top has-shadow-1 menu-panel ${isHiddenNav ? 'is-hidden' : ''}`}>
+    return (<div className={`navbar is-fixed-top has-shadow-1 menu-panel ${props.userAlreadyLogin ? '' : 'is-hidden'}`}>
             <div className="navbar-menu">
                 <div className="navbar-start">
                     <Link className="navbar-item" to="/Home">Home</Link>
@@ -29,6 +24,7 @@ export default class AppNavBar extends Component {
                     </div>
                 </div>
             </div>
-        </div>;
-    }
+        </div>);
 }
+
+export default AppNavBar;

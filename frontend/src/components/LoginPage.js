@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Link} from "react-router-dom";
 
 class LoginPage extends Component {
 
@@ -32,14 +33,12 @@ class LoginPage extends Component {
                                 <div className="is-flex-column-center">
                                     <div className="field">
                                         <p className="control">
-                                            <a className="button is-success" href="">
-                                                Sign in
-                                            </a>
+                                            <Link className="button is-success" to="/signIn">Sign in</Link>
                                         </p>
                                     </div>
                                     <div className="is-flex-row-start">
                                         <span>Don't have an account?</span>
-                                        <a className="button is-text" href="/signUp">Sign Up</a>
+                                        <Link className="button is-text" to="/signUp">Sign Up</Link>
                                     </div>
                                 </div>
                             </div>

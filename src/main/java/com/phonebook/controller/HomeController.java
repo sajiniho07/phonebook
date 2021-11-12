@@ -33,9 +33,9 @@ public class HomeController {
     }
 
     @GetMapping("/isAlreadyLogin")
-    public Boolean isAlreadyLogin() {
-        boolean result = homeService.isAlreadyLogin();
-        String logMessage = "isAlreadyLogin, result: " + (result ? "user is AlreadyLogin." : "user is not Login.");
+    public GeneralResult isAlreadyLogin() {
+        GeneralResult result = homeService.isAlreadyLogin();
+        String logMessage = "isAlreadyLogin, result: " + result.getResultCode();
         logger.info(logMessage);
         return result;
     }
