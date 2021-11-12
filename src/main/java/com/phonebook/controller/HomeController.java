@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/clients")
 public class HomeController {
 
     private static final Logger logger = LogManager.getLogger(HomeController.class);
@@ -18,9 +17,9 @@ public class HomeController {
 
     @PostMapping("/signUp")
     public GeneralResult signUp(@RequestParam("name") String name,
-                               @RequestParam("username") String username,
-                               @RequestParam("password") String password,
-                               @RequestParam("email") String email) {
+                                @RequestParam("username") String username,
+                                @RequestParam("password") String password,
+                                @RequestParam("email") String email) {
         GeneralResult result = homeService.signUp(name, username, password, email);
         return result;
     }

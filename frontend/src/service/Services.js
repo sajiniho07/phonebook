@@ -2,7 +2,7 @@
 class Services {
 
     async isAlreadyLogin() {
-        let result = await fetch('/clients/isAlreadyLogin', {
+        let result = await fetch('/isAlreadyLogin', {
             method: 'GET'
         });
         return result;

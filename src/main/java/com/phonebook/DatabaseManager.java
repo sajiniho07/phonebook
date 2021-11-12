@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.phonebook.bean.UserOwner;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -44,13 +45,14 @@ public class DatabaseManager {
 
     // todo sign out , current user = null
 
-    public int signUp(String name, String username, String password, String email) {
-        int resultCode = -1;
-        Document document = userOwnerCollection.find(
-                or(eq("username", username), eq("email", email))).first();
+    public long signUp(UserOwner userOwner) {
+        long resultCode = -1;
+        Document document = userOwnerCollection.find(or(
+                eq("username", userOwner.getUsername()),
+                eq("email", userOwner.getEmail()))).first();
         if (document == null) {
-         //   userOwnerCollection.
-          //  resultCode = 1;
+            userOwnerCollection.insertOne(userOwner.generateDocument());
+            resultCode = 1;
         } else {
 
         }
