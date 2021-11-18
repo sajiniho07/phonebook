@@ -22,9 +22,8 @@ class App extends Component {
     componentDidMount() {
         let services = new Services();
         services.isAlreadyLogin().then(response => response.json()).then(response => {
-            let resultCode = response.resultCode;
-            let isLoggedin = resultCode > 0;
-            this.setState({isAlreadyLogin: isLoggedin});
+            let isLoggedIn = response.resultCode > 0;
+            this.setState({isAlreadyLogin: isLoggedIn});
         });
     }
 

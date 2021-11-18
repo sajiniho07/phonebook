@@ -30,7 +30,7 @@ public class HomeService {
             if (resultCode > 0) {
                 generalResult = new GeneralResult(AlertEnum.SUCCESS.getId(), "Data Inserted.");
             } else {
-                generalResult = new GeneralResult(resultCode, "Failed to insert the user.");
+                generalResult = new GeneralResult(resultCode, "This user submitted before.");
             }
         }
         return generalResult;

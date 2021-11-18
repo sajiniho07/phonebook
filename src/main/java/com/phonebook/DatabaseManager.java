@@ -53,8 +53,6 @@ public class DatabaseManager {
         if (document == null) {
             userOwnerCollection.insertOne(userOwner.generateDocument());
             resultCode = 1;
-        } else {
-
         }
         return resultCode;
     }

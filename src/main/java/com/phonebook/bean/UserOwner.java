@@ -76,6 +76,9 @@ public class UserOwner {
         if (name == null || name.trim().isEmpty()) {
             return new GeneralResult(AlertEnum.ERROR.getId(), "Invalid name.");
         }
+        if (username == null || username.trim().isEmpty()) {
+            return new GeneralResult(AlertEnum.ERROR.getId(), "Invalid username.");
+        }
         if (!StringHelper.checkValidateEmail(email)) {
             return new GeneralResult(AlertEnum.ERROR.getId(), "Invalid email.");
         }
