@@ -1,12 +1,11 @@
 package com.phonebook.bean;
 
 import com.phonebook.helper.AlertEnum;
-import com.phonebook.helper.GeneralResult;
 import com.phonebook.helper.StringHelper;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-public class UserOwner {
+public class UserOwner extends GeneralResult {
     private ObjectId id;
     private String name;
     private String username;
@@ -20,7 +19,6 @@ public class UserOwner {
         this.id = doc.getObjectId("_id");
         this.name = doc.getString("name");
         this.username = doc.getString("username");
-        this.password = doc.getString("password");
         this.email = doc.getString("email");
     }
 

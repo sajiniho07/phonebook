@@ -33,27 +33,32 @@ public class DatabaseManager {
         return currentUserId != null;
     }
 
-    public boolean login(String username, String password) {
+    public UserOwner login(String username, String password) {
         Document document = userOwnerCollection.find(
                 and(eq("username", username), eq("password", password))).first();
         if (document != null) {
-            currentUserId = document.getObjectId("_id");
-            return true;
+            this.currentUserId = document.getObjectId("_id");
+            UserOwner userOwner = new UserOwner(document);
+            return userOwner;
         }
-        return false;
+        return null;
     }
 
     // todo sign out , current user = null
 
-    public long signUp(UserOwner userOwner) {
-        long resultCode = -1;
+    public UserOwner signUp(UserOwner newUserOwner) {
+        UserOwner userOwner = null;
         Document document = userOwnerCollection.find(or(
-                eq("username", userOwner.getUsername()),
-                eq("email", userOwner.getEmail()))).first();
+                eq("username", newUserOwner.getUsername()),
+                eq("email", newUserOwner.getEmail()))).first();
         if (document == null) {
-            userOwnerCollection.insertOne(userOwner.generateDocument());
-            resultCode = 1;
+            userOwnerCollection.insertOne(newUserOwner.generateDocument());
+            userOwner = login(newUserOwner.getUsername(), newUserOwner.getPassword());
         }
-        return resultCode;
+        return userOwner;
+    }
+
+    public void signOut() {
+        this.currentUserId = null;
     }
 }

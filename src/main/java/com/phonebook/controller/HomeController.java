@@ -1,6 +1,7 @@
 package com.phonebook.controller;
 
-import com.phonebook.helper.GeneralResult;
+import com.phonebook.bean.UserOwner;
+import com.phonebook.bean.GeneralResult;
 import com.phonebook.service.HomeService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -17,19 +18,27 @@ public class HomeController {
     private HomeService homeService;
 
     @PostMapping("/signUp")
-    public GeneralResult signUp(@RequestParam("name") String name,
+    public UserOwner signUp(@RequestParam("name") String name,
                                 @RequestParam("username") String username,
                                 @RequestParam("password") String password,
                                 @RequestParam("email") String email) {
-        GeneralResult result = homeService.signUp(name, username, password, email);
+        UserOwner result = homeService.signUp(name, username, password, email);
         logger(Level.INFO, result, "signUp");
         return result;
     }
 
-    @PostMapping("/")
-    public GeneralResult loginPage(@RequestParam("username") String username,
+    @PostMapping("/signIn")
+    public UserOwner loginPage(@RequestParam("username") String username,
                                    @RequestParam("password") String password) {
-        GeneralResult result = homeService.login(username, password);
+        UserOwner result = homeService.login(username, password);
+        logger(Level.INFO, result, "loginPage");
+        return result;
+    }
+
+    @GetMapping("/signOut")
+    public GeneralResult signOut() {
+        GeneralResult result = homeService.signOut();
+        logger(Level.INFO, result, "signOut");
         return result;
     }
 

@@ -99,6 +99,7 @@ class SignUp extends Component {
                 let resultCode = response.data.resultCode;
                 if (resultCode > 0) {
                     toast.success('User sign up succeed.');
+                    this.props.history.push('/Home')
                 } else {
                     toast.error(response.data.resultText);
                 }

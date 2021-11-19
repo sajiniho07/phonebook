@@ -1,7 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import axios from "axios";
 
 function AppNavBar(props) {
+
+    function signOut() {
+        axios.get('/signOut')
+            .then(response => {
+                console.log(response.data.resultText);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
     return (<div className={`navbar is-fixed-top has-shadow-1 menu-panel ${props.userAlreadyLogin ? '' : 'is-hidden'}`}>
             <div className="navbar-menu">
@@ -19,7 +30,7 @@ function AppNavBar(props) {
                         </a>
                         <div className="navbar-dropdown">
                             <Link className="navbar-item" to="/SignUp">profile info</Link>
-                            <Link className="navbar-item" to="/">Sign out</Link>
+                            <Link className="navbar-item" onClick={signOut} to="/">Sign out</Link>
                         </div>
                     </div>
                 </div>

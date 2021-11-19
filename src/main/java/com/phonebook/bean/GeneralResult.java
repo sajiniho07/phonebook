@@ -1,4 +1,4 @@
-package com.phonebook.helper;
+package com.phonebook.bean;
 
 public class GeneralResult {
 

@@ -7,31 +7,13 @@ import Category from './components/Category';
 import CreateNewContact from './components/CreateNewContact';
 import SignUp from './components/SignUp';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import AppNavBar from "./components/AppNavBar";
-import Services from "./service/Services";
 
 class App extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            isAlreadyLogin: false
-        };
-    }
-
-    componentDidMount() {
-        let services = new Services();
-        services.isAlreadyLogin().then(response => response.json()).then(response => {
-            let isLoggedIn = response.resultCode > 0;
-            this.setState({isAlreadyLogin: isLoggedIn});
-        });
-    }
 
     render() {
         return (
             <BrowserRouter>
                 <div>
-                    <AppNavBar userAlreadyLogin={this.state.isAlreadyLogin}/>
                     <Switch>
                         <Route path='/' exact component={LoginPage}/>
                         <Route path='/Home' component={Home}/>
