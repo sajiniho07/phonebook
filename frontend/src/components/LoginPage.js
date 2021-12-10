@@ -48,7 +48,10 @@ class LoginPage extends Component {
                 this.setLoading(false);
                 let resultCode = response.data.resultCode;
                 if (resultCode > 0) {
-                    this.props.history.push('/Home')
+                    this.props.history.push({
+                        pathname: '/Home',
+                        state: { detail: response.data }
+                    });
                 } else {
                     toast.error(response.data.resultText);
                 }

@@ -31,3 +31,11 @@
     margin-top: 51px;
     background-color: #00d1b2;
 }
+
+.account-name-panel .navbar-link {
+    width: 100%;
+}
+
+.account-name-panel {
+    min-width: 10rem;
+}

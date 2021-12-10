@@ -1,90 +1,92 @@
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect} from "react";
+import {Link, useLocation} from "react-router-dom";
 import axios from "axios";
 import qs from "qs";
 import StringHelper from "../helper/StringHelper";
 import {toast, ToastContainer} from "react-toastify";
+import AppNavBar from "./AppNavBar";
 
-class SignUp extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: "",
-            username: "",
-            password: "",
-            repeatPassword: "",
-            email: "",
-            isLoading: false,
-            isNameValid: true,
-            isUserNameValid: true,
-            isEmailValid: true,
-            isPasswordValid: true,
-            isRepeatPasswordValid: true,
-        };
+function SignUp(props) {
+    const [state, setState] = React.useState({
+        name: "",
+        username: "",
+        password: "",
+        repeatPassword: "",
+        email: ""
+    });
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    const [isNameValid, setIsNameValid] = React.useState(true);
+    const [isUserNameValid, setIsUserNameValid] = React.useState(true);
+    const [isPasswordValid, setIsPasswordValid] = React.useState(true);
+    const [isRepeatPasswordValid, setIsRepeatPasswordValid] = React.useState(true);
+    const [isEmailValid, setIsEmailValid] = React.useState(true);
+    const [isLoading, setIsLoading] = React.useState(false);
 
-    handleChange(e) {
+    const location = useLocation();
+    useEffect(() => {
+        let detail = !location.state ? "" : location.state.detail;
+        if (detail) {
+            setState({...state, name: detail.name, username: detail.username, email: detail.email});
+        }
+    }, [location]);
+
+    function handleChange(e) {
         const target = e.target;
         const value = target.value;
         const name = target.name;
-        this.setState({
+        setState({
+            ...state,
             [name]: value
         });
+
     }
 
-    handleSubmit() {
-        let isValid = this.validation();
+    function handleSubmit() {
+        let isValid = validation();
         if (isValid) {
-            this.signUp();
+            signUp();
         }
     }
 
-    setLoading(isLoading) {
-        this.setState({isLoading: isLoading});
-    }
-
-    validation() {
+    function validation() {
         let stringHelper = new StringHelper();
         let isValid = true;
-        let formData = this.state;
+        let formData = state;
         if (!formData.name) {
             isValid = false;
-            this.setState({isNameValid: false});
+            setIsNameValid(false);
         } else {
-            this.setState({isNameValid: true});
+            setIsNameValid(true);
         }
         if (!stringHelper.checkValidateUsername(formData.username)) {
             isValid = false;
-            this.setState({isUserNameValid: false});
+            setIsUserNameValid(false);
         } else {
-            this.setState({isUserNameValid: true});
+            setIsUserNameValid(true);
         }
         if (!stringHelper.checkValidatePassword(formData.password)) {
             isValid = false;
-            this.setState({isPasswordValid: false});
+            setIsPasswordValid(false);
         } else if (formData.password !== formData.repeatPassword) {
             isValid = false;
-            this.setState({isPasswordValid: true});
-            this.setState({isRepeatPasswordValid: false});
+            setIsPasswordValid(true);
+            setIsRepeatPasswordValid(false);
         } else {
-            this.setState({isPasswordValid: true});
-            this.setState({isRepeatPasswordValid: true});
+            setIsPasswordValid(true);
+            setIsRepeatPasswordValid(true);
         }
         if (!stringHelper.checkValidateEmail(formData.email)) {
             isValid = false;
-            this.setState({isEmailValid: false});
+            setIsEmailValid(false);
         } else {
-            this.setState({isEmailValid: true});
+            setIsEmailValid(true);
         }
         return isValid;
     }
 
-    signUp() {
-        this.setLoading(true);
-        let formData = this.state;
+    function signUp() {
+        setIsLoading(true);
+        let formData = state;
         axios.post('/signUp',
             qs.stringify(
                 {
@@ -94,117 +96,119 @@ class SignUp extends Component {
                     username: formData.username
                 }))
             .then(response => {
-                this.setLoading(false);
+                setIsLoading(false);
                 let resultCode = response.data.resultCode;
                 if (resultCode > 0) {
                     toast.success('User sign up succeed.');
-                    this.props.history.push('/Home')
+                    props.history.push({
+                        pathname: '/Home',
+                        state: {detail: response.data}
+                    });
                 } else {
                     toast.error(response.data.resultText);
                 }
             })
             .catch(error => {
-                this.setLoading(false);
+                setIsLoading(false);
                 console.log(error);
             });
     }
 
-    render() {
-        return (<>
-                <div className="hero is-primary full-height">
-                    <div className="hero-body">
-                        <h1 className="title has-text-centered is-size-2">Creat an account</h1>
-                        <div className="columns is-centered">
-                            <div className="column is-half">
-                                <div className="notification is-light">
-                                    <div className="field">
-                                        <label className="label">Name</label>
-                                        <div className="control">
-                                            <input className={`input ${this.state.isNameValid ? '' : 'is-danger'}`}
-                                                   placeholder="Ex. Ralf" value={this.state.name}
-                                                   name="name" onChange={this.handleChange}/>
-                                        </div>
+    return (<>
+            <AppNavBar userOwnerInfo={!location.state ? "" : location.state.detail}/>
+            <div className="hero is-primary full-height">
+                <div className="hero-body">
+                    <h1 className="title has-text-centered is-size-2">Creat an account</h1>
+                    <div className="columns is-centered">
+                        <div className="column is-half">
+                            <div className="notification is-light">
+                                <div className="field">
+                                    <label className="label">Name</label>
+                                    <div className="control">
+                                        <input className={`input ${isNameValid ? '' : 'is-danger'}`}
+                                               placeholder="Ex. Ralf" value={state.name}
+                                               name="name" onChange={handleChange}/>
                                     </div>
+                                </div>
 
-                                    <div className="field">
-                                        <label className="label">Username</label>
-                                        <div className="control has-icons-left has-icons-right">
-                                            <input className={`input ${this.state.isUserNameValid ? '' : 'is-danger'}`}
-                                                   placeholder="Ex. Ralf_45" name="username"
-                                                   value={this.state.username} onChange={this.handleChange}/>
-                                            <span className="icon is-small is-left">
+                                <div className="field">
+                                    <label className="label">Username</label>
+                                    <div className="control has-icons-left has-icons-right">
+                                        <input className={`input ${isUserNameValid ? '' : 'is-danger'}`}
+                                               placeholder="Ex. Ralf_45" name="username"
+                                               value={state.username} onChange={handleChange}/>
+                                        <span className="icon is-small is-left">
                                             <i className="fas fa-user"></i>
                                         </span>
-                                        </div>
-                                        <p className={`help is-danger ${this.state.isUserNameValid ? 'is-hidden' : ''}`}>
-                                            The username must be between 4 and 15 characters long.
-                                        </p>
                                     </div>
+                                    <p className={`help is-danger ${isUserNameValid ? 'is-hidden' : ''}`}>
+                                        The username must be between 4 and 15 characters long.
+                                    </p>
+                                </div>
 
-                                    <div className="field">
-                                        <label className="label">Password</label>
-                                        <div className="control has-icons-left has-icons-right">
-                                            <input className={`input ${this.state.isPasswordValid ? '' : 'is-danger'}`}
-                                                   placeholder="Password" name="password"
-                                                   value={this.state.password} onChange={this.handleChange}/>
-                                            <span className="icon is-small is-left">
+                                <div className="field">
+                                    <label className="label">Password</label>
+                                    <div className="control has-icons-left has-icons-right">
+                                        <input className={`input ${isPasswordValid ? '' : 'is-danger'}`}
+                                               placeholder="Password" name="password"
+                                               value={state.password} onChange={handleChange}/>
+                                        <span className="icon is-small is-left">
                                             <i className="fas fa-lock"></i>
                                         </span>
-                                        </div>
-                                        <p className={`help is-danger ${this.state.isPasswordValid ? 'is-hidden' : ''}`}>
-                                            The password must be between 6 and 20 characters long.
-                                        </p>
                                     </div>
+                                    <p className={`help is-danger ${isPasswordValid ? 'is-hidden' : ''}`}>
+                                        The password must be between 6 and 20 characters long.
+                                    </p>
+                                </div>
 
-                                    <div className="field">
-                                        <label className="label">Repeat Password</label>
-                                        <div className="control has-icons-left has-icons-right">
-                                            <input
-                                                className={`input ${this.state.isRepeatPasswordValid ? '' : 'is-danger'}`}
-                                                placeholder="Password" name="repeatPassword"
-                                                value={this.state.repeatPassword} onChange={this.handleChange}/>
-                                            <span className="icon is-small is-left">
+                                <div className="field">
+                                    <label className="label">Repeat Password</label>
+                                    <div className="control has-icons-left has-icons-right">
+                                        <input
+                                            className={`input ${isRepeatPasswordValid ? '' : 'is-danger'}`}
+                                            placeholder="Password" name="repeatPassword"
+                                            value={state.repeatPassword} onChange={handleChange}/>
+                                        <span className="icon is-small is-left">
                                             <i className="fas fa-lock"></i>
                                         </span>
-                                        </div>
-                                        <p className={`help is-danger ${this.state.isRepeatPasswordValid ? 'is-hidden' : ''}`}>
-                                            It doesn't match the repeated password.
-                                        </p>
                                     </div>
+                                    <p className={`help is-danger ${isRepeatPasswordValid ? 'is-hidden' : ''}`}>
+                                        It doesn't match the repeated password.
+                                    </p>
+                                </div>
 
-                                    <div className="field">
-                                        <label className="label">Email</label>
-                                        <div className="control has-icons-left has-icons-right">
-                                            <input className={`input ${this.state.isEmailValid ? '' : 'is-danger'}`}
-                                                   placeholder="Ex. abc@gmail.com" type="email"
-                                                   name="email" onChange={this.handleChange} value={this.state.email}/>
-                                            <span className="icon is-small is-left">
+                                <div className="field">
+                                    <label className="label">Email</label>
+                                    <div className="control has-icons-left has-icons-right">
+                                        <input className={`input ${isEmailValid ? '' : 'is-danger'}`}
+                                               placeholder="Ex. abc@gmail.com" type="email"
+                                               name="email" onChange={handleChange} value={state.email}/>
+                                        <span className="icon is-small is-left">
                                             <i className="fas fa-envelope"></i>
                                         </span>
-                                        </div>
-                                        <p className={`help is-danger ${this.state.isEmailValid ? 'is-hidden' : ''}`}>
-                                            This email is invalid.
-                                        </p>
                                     </div>
+                                    <p className={`help is-danger ${isEmailValid ? 'is-hidden' : ''}`}>
+                                        This email is invalid.
+                                    </p>
+                                </div>
 
-                                    <div className="field is-grouped">
-                                        <div className="control">
-                                            <a className={`button is-primary ${this.state.isLoading ? 'is-loading' : ''}`}
-                                               onClick={this.handleSubmit}>Submit</a>
-                                        </div>
-                                        <div className="control">
-                                            <Link className="button is-primary is-light" to="/">Cancel</Link>
-                                        </div>
+                                <div className="field is-grouped">
+                                    <div className="control">
+                                        <a className={`button is-primary ${isLoading ? 'is-loading' : ''}`}
+                                           onClick={handleSubmit}>Submit</a>
+                                    </div>
+                                    <div className="control">
+                                        <Link className="button is-primary is-light" to="/">Cancel</Link>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <ToastContainer/>
-            </>
-        );
-    }
+            </div>
+            <ToastContainer/>
+        </>
+    );
 }
 
 export default SignUp;

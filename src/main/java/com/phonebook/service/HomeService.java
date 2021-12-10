@@ -51,7 +51,7 @@ public class HomeService {
         boolean alreadyLogin = databaseManager.isAlreadyLogin();
         GeneralResult generalResult;
         if (alreadyLogin) {
-            generalResult = new GeneralResult(AlertEnum.SUCCESS.getId(), "");
+            generalResult = new GeneralResult(AlertEnum.SUCCESS.getId(), "User is Logged in.");
         } else {
             generalResult = new GeneralResult(AlertEnum.ERROR.getId(), "User is not Login.");
         }
