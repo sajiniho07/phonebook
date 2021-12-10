@@ -4,7 +4,6 @@ import axios from "axios";
 import qs from "qs";
 import StringHelper from "../helper/StringHelper";
 import {toast, ToastContainer} from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 
 class SignUp extends Component {
     constructor(props) {
