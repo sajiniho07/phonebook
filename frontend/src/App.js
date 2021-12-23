@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
 import LoginPage from './components/LoginPage';
 import Home from './components/Home';
@@ -7,11 +7,14 @@ import Category from './components/Category';
 import CreateNewContact from './components/CreateNewContact';
 import SignUp from './components/SignUp';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {UserContext} from "./context/UserContext";
+import useLocalStorage from "./helper/useLocalStorage";
 
-class App extends Component {
+const App = () => {
+    const [userContext, setUserContext] = useLocalStorage('user');
 
-    render() {
-        return (
+    return (
+        <UserContext.Provider value={[userContext, setUserContext]}>
             <BrowserRouter>
                 <div>
                     <Switch>
@@ -24,8 +27,8 @@ class App extends Component {
                     </Switch>
                 </div>
             </BrowserRouter>
-        )
-    }
+        </UserContext.Provider>
+    )
 }
 
 export default App;

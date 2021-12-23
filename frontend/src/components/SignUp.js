@@ -1,13 +1,16 @@
-import React, {useEffect} from "react";
-import {Link, useLocation} from "react-router-dom";
+import React, {useContext, useEffect} from "react";
+import {Link} from "react-router-dom";
 import axios from "axios";
 import qs from "qs";
 import StringHelper from "../helper/StringHelper";
 import {toast, ToastContainer} from "react-toastify";
 import AppNavBar from "./AppNavBar";
+import {UserContext} from "../context/UserContext";
 
 function SignUp(props) {
+    const [userContext, setUserContext] = useContext(UserContext);
     const [state, setState] = React.useState({
+        _id: "",
         name: "",
         username: "",
         password: "",
@@ -22,13 +25,11 @@ function SignUp(props) {
     const [isEmailValid, setIsEmailValid] = React.useState(true);
     const [isLoading, setIsLoading] = React.useState(false);
 
-    const location = useLocation();
     useEffect(() => {
-        let detail = !location.state ? "" : location.state.detail;
-        if (detail) {
-            setState({...state, name: detail.name, username: detail.username, email: detail.email});
+        if (userContext) {
+            setState({...state, _id: userContext.id, name: userContext.name, username: userContext.username, email: userContext.email});
         }
-    }, [location]);
+    }, []);
 
     function handleChange(e) {
         const target = e.target;
@@ -86,23 +87,22 @@ function SignUp(props) {
 
     function signUp() {
         setIsLoading(true);
-        let formData = state;
         axios.post('/signUp',
             qs.stringify(
                 {
-                    name: formData.name,
-                    password: formData.password,
-                    email: formData.email,
-                    username: formData.username
+                    name: state.name,
+                    password: state.password,
+                    email: state.email,
+                    username: state.username
                 }))
             .then(response => {
                 setIsLoading(false);
                 let resultCode = response.data.resultCode;
                 if (resultCode > 0) {
                     toast.success('User sign up succeed.');
+                    setUserContext(response.data);
                     props.history.push({
-                        pathname: '/Home',
-                        state: {detail: response.data}
+                        pathname: '/Home'
                     });
                 } else {
                     toast.error(response.data.resultText);
@@ -115,10 +115,10 @@ function SignUp(props) {
     }
 
     return (<>
-            <AppNavBar userOwnerInfo={!location.state ? "" : location.state.detail}/>
+            <AppNavBar/>
             <div className="hero is-primary full-height">
                 <div className="hero-body">
-                    <h1 className="title has-text-centered is-size-2">Creat an account</h1>
+                    <h1 className="title has-text-centered is-size-2">{state._id ? 'Update user information' : 'Creat an account'}</h1>
                     <div className="columns is-centered">
                         <div className="column is-half">
                             <div className="notification is-light">
@@ -198,7 +198,7 @@ function SignUp(props) {
                                            onClick={handleSubmit}>Submit</a>
                                     </div>
                                     <div className="control">
-                                        <Link className="button is-primary is-light" to="/">Cancel</Link>
+                                        <Link className="button is-primary is-light" to={`${state._id ? '/Home' : '/'}`}>Cancel</Link>
                                     </div>
                                 </div>
                             </div>

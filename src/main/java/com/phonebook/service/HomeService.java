@@ -26,22 +26,47 @@ public class HomeService {
     public UserOwner signUp(String name, String username, String password, String email) {
         UserOwner result;
         UserOwner newUserOwner = new UserOwner(name, username, password, email);
-        GeneralResult generalResult = newUserOwner.getValidationErrorTxt();
+        GeneralResult generalResult = newUserOwner.getGeneralResult();
         if (generalResult.getResultCode() > 0) {
             DatabaseManager databaseManager = DatabaseManager.getInstance();
-            result = databaseManager.signUp(newUserOwner);
-            if (result != null) {
-                result.setResultCode(AlertEnum.SUCCESS.getId());
-                result.setResultText("username: " + username + ", created in successfully.");
+            boolean isAlreadyLogin = databaseManager.isAlreadyLogin();
+            if (isAlreadyLogin) {
+                result = updateUser(newUserOwner, databaseManager);
             } else {
-                result = new UserOwner();
-                result.setResultCode(AlertEnum.ERROR.getId());
-                result.setResultText("This user submitted before.");
+                result = signUp(newUserOwner, databaseManager);
             }
         } else {
             result = new UserOwner();
             result.setResultCode(generalResult.getResultCode());
             result.setResultText(generalResult.getResultText());
+        }
+        return result;
+    }
+
+    private UserOwner signUp(UserOwner newUserOwner, DatabaseManager databaseManager) {
+        UserOwner result;
+        result = databaseManager.signUp(newUserOwner);
+        if (result != null) {
+            result.setResultCode(AlertEnum.SUCCESS.getId());
+            result.setResultText("username: " + newUserOwner.getUsername() + ", created in successfully.");
+        } else {
+            result = new UserOwner();
+            result.setResultCode(AlertEnum.ERROR.getId());
+            result.setResultText("This user submitted before.");
+        }
+        return result;
+    }
+
+    private UserOwner updateUser(UserOwner newUserOwner, DatabaseManager databaseManager) {
+        UserOwner result;
+        result = databaseManager.updateUser(newUserOwner);
+        if (result != null) {
+            result.setResultCode(AlertEnum.SUCCESS.getId());
+            result.setResultText("User updated successfully.");
+        } else {
+            result = new UserOwner();
+            result.setResultCode(AlertEnum.ERROR.getId());
+            result.setResultText("User not found.");
         }
         return result;
     }

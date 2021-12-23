@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import axios from "axios";
+import {UserContext} from "../context/UserContext";
 
 function AppNavBar(props) {
 
     const [isAlreadyLogin, setIsAlreadyLogin] = useState(false);
+    const [userContext, setUserContext] = useContext(UserContext);
 
     useEffect(() => {
         axios.get('/isAlreadyLogin')
@@ -14,6 +16,7 @@ function AppNavBar(props) {
                     setIsAlreadyLogin(true);
                 } else {
                     setIsAlreadyLogin(false);
+                    setUserContext(null);
                 }
             })
             .catch(error => {
@@ -26,6 +29,7 @@ function AppNavBar(props) {
         axios.get('/signOut')
             .then(response => {
                 console.log(response.data.resultText);
+                setUserContext(null);
             })
             .catch(error => {
                 console.log(error);
@@ -36,8 +40,7 @@ function AppNavBar(props) {
         <div className="navbar-menu">
             <div className="navbar-start">
                 <Link className="navbar-item" to={{
-                    pathname: '/Home',
-                    state: { detail: props.userOwnerInfo }
+                    pathname: '/Home'
                 }}>Home</Link>
                 <Link className="navbar-item" to="/Contacts">Contacts</Link>
                 <Link className="navbar-item" to="/Category">Category</Link>
@@ -46,12 +49,11 @@ function AppNavBar(props) {
             <div className="navbar-end">
                 <div className="navbar-item is-hoverable has-dropdown account-name-panel">
                     <a className="navbar-link">
-                        <div>{props !== undefined && props.userOwnerInfo !== undefined? props.userOwnerInfo.name : "undefined"}</div>
+                        <div>{userContext && userContext !== undefined ? userContext.name : "undefined"}</div>
                     </a>
                     <div className="navbar-dropdown">
                         <Link className="navbar-item" to={{
-                            pathname: '/SignUp',
-                            state: { detail: props.userOwnerInfo }
+                            pathname: '/SignUp'
                         }}>profile info</Link>
                         <Link className="navbar-item" onClick={signOut} to="/">Sign out</Link>
                     </div>

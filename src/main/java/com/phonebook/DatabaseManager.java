@@ -61,4 +61,13 @@ public class DatabaseManager {
     public void signOut() {
         this.currentUserId = null;
     }
+
+    public UserOwner updateUser(UserOwner newUserOwner) {
+        UserOwner userOwner = null;
+        Document document = userOwnerCollection.findOneAndReplace(eq("_id", currentUserId), newUserOwner.generateDocument());
+        if (document != null) {
+            userOwner = login(newUserOwner.getUsername(), newUserOwner.getPassword());
+        }
+        return userOwner;
+    }
 }
