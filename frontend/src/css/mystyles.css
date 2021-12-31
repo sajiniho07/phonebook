@@ -11,11 +11,6 @@
     align-items: center;
 }
 
-.full-height {
-    height: 100%;
-    min-height: 100vh;
-}
-
 .is-flex-row-start {
     display: flex;
     justify-content: flex-start;
@@ -38,4 +33,12 @@
 
 .account-name-panel {
     min-width: 10rem;
+}
+
+.is-fullheight .hero-body {
+    display: block !important;
+}
+
+.navbar-item.has-dropdown:hover .navbar-link {
+    color: black !important;
 }

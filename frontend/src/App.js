@@ -16,7 +16,7 @@ const App = () => {
     return (
         <UserContext.Provider value={[userContext, setUserContext]}>
             <BrowserRouter>
-                <div>
+                <div className="hero is-info is-fullheight">
                     <Switch>
                         <Route path='/' exact component={LoginPage}/>
                         <Route path='/Home' component={Home}/>
