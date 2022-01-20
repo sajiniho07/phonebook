@@ -9,6 +9,7 @@ import SignUp from './components/SignUp';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {UserContext} from "./context/UserContext";
 import useLocalStorage from "./helper/useLocalStorage";
+import {ToastContainer} from "react-toastify";
 
 const App = () => {
     const [userContext, setUserContext] = useLocalStorage('user');
@@ -27,6 +28,7 @@ const App = () => {
                     </Switch>
                 </div>
             </BrowserRouter>
+            <ToastContainer/>
         </UserContext.Provider>
     )
 }

@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import qs from "qs";
 import StringHelper from "../helper/StringHelper";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 import AppNavBar from "./AppNavBar";
 import {UserContext} from "../context/UserContext";
 
@@ -105,7 +105,7 @@ function SignUp(props) {
                 setIsLoading(false);
                 let resultCode = response.data.resultCode;
                 if (resultCode > 0) {
-                    toast.success('User sign up succeed.');
+                    toast.success(response.data.resultText);
                     setUserContext(response.data);
                     props.history.push({
                         pathname: '/Home'
@@ -211,7 +211,6 @@ function SignUp(props) {
                     </div>
                 </div>
             </div>
-            <ToastContainer/>
         </>
     );
 }

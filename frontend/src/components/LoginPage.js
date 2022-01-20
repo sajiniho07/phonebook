@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import qs from "qs";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 import {UserContext} from "../context/UserContext";
 
 function LoginPage(props) {
@@ -93,7 +93,6 @@ function LoginPage(props) {
                     </div>
                 </div>
             </div>
-            <ToastContainer/>
         </>
     );
 }

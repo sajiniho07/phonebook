@@ -1,11 +1,14 @@
 package com.phonebook.bean;
 
+import com.phonebook.helper.AlertEnum;
+
 public class GeneralResult {
 
     private long resultCode;
     private String resultText;
 
     public GeneralResult() {
+        this(AlertEnum.ERROR.getId(), "The process failed.");
     }
 
     public GeneralResult(long resultCode, String resultText) {

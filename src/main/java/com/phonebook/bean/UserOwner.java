@@ -70,7 +70,7 @@ public class UserOwner extends GeneralResult {
         this.password = password;
     }
 
-    public GeneralResult getGeneralResult() {
+    public GeneralResult validateData() {
         if (name == null || name.trim().isEmpty()) {
             return new GeneralResult(AlertEnum.ERROR.getId(), "Invalid name.");
         }

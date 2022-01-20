@@ -17,4 +17,12 @@ public class StringHelper {
         String regex = "\\b[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}\\b";
         return email.matches(regex);
     }
+
+    public static boolean checkValidateNumber(String number) {
+        if (number == null) {
+            return false;
+        }
+        String regex = "\\d+";
+        return number.matches(regex);
+    }
 }

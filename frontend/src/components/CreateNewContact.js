@@ -1,8 +1,10 @@
 import React, {useEffect} from "react";
 import AppNavBar from "./AppNavBar";
 import {Link, useLocation} from "react-router-dom";
-import {ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 import StringHelper from "../helper/StringHelper";
+import axios from "axios";
+import qs from "qs";
 
 function CreateNewContact(props) {
 
@@ -39,8 +41,8 @@ function CreateNewContact(props) {
                 phoneNumber: detail.phoneNumber,
                 facebook: detail.facebook,
                 twitter: detail.twitter,
-                isMarked: detail.isMarked,
                 categoryName: detail.categoryName,
+                isMarked: detail.isMarked,
                 photoData: detail.photoData,
                 numberType: detail.numberType
             });
@@ -61,8 +63,42 @@ function CreateNewContact(props) {
     function handleSubmit() {
         let isValid = validation();
         if (isValid) {
-            //   signUp();
+            contactInsertOrUpdate();
         }
+    }
+
+    function contactInsertOrUpdate() {
+        setIsLoading(true);
+        axios.post('/contactInsertOrUpdate',
+            qs.stringify(
+                {
+                    contactId: state._id,
+                    name: state.name,
+                    email: state.email,
+                    phoneNumber: state.phoneNumber,
+                    facebook: state.facebook,
+                    twitter: state.twitter,
+                    categoryName: state.categoryName,
+                    isMarked: false,
+                    numberType: 'numberType_moqe',
+                    photoData: 'photoData_moqe'
+                }))
+            .then(response => {
+                setIsLoading(false);
+                let resultCode = response.data.resultCode;
+                if (resultCode > 0) {
+                    toast.success(response.data.resultText);
+                    props.history.push({
+                        pathname: '/Home'
+                    });
+                } else {
+                    toast.error(response.data.resultText);
+                }
+            })
+            .catch(error => {
+                setIsLoading(false);
+                console.log(error);
+            });
     }
 
     function validation() {
@@ -203,7 +239,6 @@ function CreateNewContact(props) {
                     </div>
                 </div>
             </div>
-            <ToastContainer/>
         </>
     );
 }
