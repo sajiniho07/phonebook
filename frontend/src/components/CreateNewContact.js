@@ -176,7 +176,6 @@ function CreateNewContact(props) {
                                            name="email" onChange={handleChange} value={state.email}/>
                                     <span className="icon is-small is-left">
                                             <i className="fas fa-envelope"></i>
-                                        terst
                                         </span>
                                 </div>
                                 <p className={`help is-danger ${isEmailValid ? 'is-hidden' : ''}`}>
