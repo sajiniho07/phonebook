@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import axios from "axios";
 import {UserContext} from "../context/UserContext";
 import defaultImage from "../static/user-male.svg";
+import {toast} from "react-toastify";
 
 function AppNavBar(props) {
 
@@ -21,6 +22,7 @@ function AppNavBar(props) {
                 }
             })
             .catch(error => {
+                toast.error("A bad request was received.");
                 setIsAlreadyLogin(false);
                 console.log(error);
             });
@@ -33,6 +35,7 @@ function AppNavBar(props) {
                 setUserContext(null);
             })
             .catch(error => {
+                toast.error("A bad request was received.");
                 console.log(error);
             });
     }

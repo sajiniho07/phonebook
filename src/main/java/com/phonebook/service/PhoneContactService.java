@@ -6,24 +6,35 @@ import com.phonebook.dao.PhoneContactDao;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PhoneContactService {
 
     public GeneralResult contactInsertOrUpdate(String contactId, String name, String email, String phoneNumber,
                                                String facebook, String twitter, String categoryName, Boolean isMarked,
-                                               String numberType, String photoData) {
+                                               String photoData) {
         GeneralResult generalResult;
         ObjectId id = null;
         if (contactId != null && !contactId.trim().isEmpty()) {
             id = new ObjectId(contactId.trim());
         }
         PhoneContactInfo phoneContactInfo = new PhoneContactInfo(id, name, email, phoneNumber,
-                facebook, twitter, categoryName, isMarked, numberType, photoData);
+                facebook, twitter, categoryName, isMarked, photoData);
         generalResult = phoneContactInfo.validateData();
         if (generalResult.getResultCode() > 0) {
             PhoneContactDao phoneContactDao = new PhoneContactDao();
             generalResult = phoneContactDao.contactInsertOrUpdate(phoneContactInfo);
         }
         return generalResult;
+    }
+
+    public List<PhoneContactInfo> getContacts(String searchContent, Integer orderBy, Integer filterTypeId, String categoryName) {
+        PhoneContactDao phoneContactDao = new PhoneContactDao();
+        searchContent = (searchContent!= null && searchContent.isEmpty() ? null : searchContent);
+        orderBy = (orderBy == null ? 1 : orderBy);
+        categoryName = (categoryName != null && categoryName.isEmpty() ? null : categoryName);
+        List<PhoneContactInfo> result = phoneContactDao.getContacts(searchContent, orderBy, filterTypeId, categoryName);
+        return result;
     }
 }

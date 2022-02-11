@@ -13,7 +13,6 @@ function CreateNewContact(props) {
         name: "",
         email: "",
         phoneNumber: "",
-        numberType: "",
         facebook: "",
         twitter: "",
         isMarked: false,
@@ -43,8 +42,7 @@ function CreateNewContact(props) {
                 twitter: detail.twitter,
                 categoryName: detail.categoryName,
                 isMarked: detail.isMarked,
-                photoData: detail.photoData,
-                numberType: detail.numberType
+                photoData: detail.photoData
             });
         }
     }, [location]);
@@ -57,7 +55,6 @@ function CreateNewContact(props) {
             ...state,
             [name]: value
         });
-
     }
 
     function handleSubmit() {
@@ -80,7 +77,6 @@ function CreateNewContact(props) {
                     twitter: state.twitter,
                     categoryName: state.categoryName,
                     isMarked: false,
-                    numberType: 'numberType_moqe',
                     photoData: 'photoData_moqe'
                 }))
             .then(response => {
@@ -96,6 +92,7 @@ function CreateNewContact(props) {
                 }
             })
             .catch(error => {
+                toast.error("A bad request was received.");
                 setIsLoading(false);
                 console.log(error);
             });
@@ -145,7 +142,7 @@ function CreateNewContact(props) {
                     <div className="column is-half">
                         <div className="notification is-light">
                             <div className="field">
-                                <label className="label">Name</label>
+                                <label className="label">* Name</label>
                                 <div className="control">
                                     <input className={`input ${isNameValid ? '' : 'is-danger'}`}
                                            placeholder="Ex. Ralf" value={state.name}
@@ -154,14 +151,14 @@ function CreateNewContact(props) {
                             </div>
 
                             <div className="field">
-                                <label className="label">Phone Number</label>
-                                <div className="control has-icons-left has-icons-right">
+                                <label className="label">* Phone Number</label>
+                                <div className="control has-icons-left">
                                     <input className={`input ${isPhoneNumberValid ? '' : 'is-danger'}`}
                                            placeholder="Ex. 98902799" name="phoneNumber"
                                            value={state.phoneNumber} onChange={handleChange}/>
                                     <span className="icon is-small is-left">
-                                            <i className="fas fa-mobile"></i>
-                                        </span>
+                                        <i className="fas fa-mobile"></i>
+                                    </span>
                                 </div>
                                 <p className={`help is-danger ${isPhoneNumberValid ? 'is-hidden' : ''}`}>
                                     The phone number is invalid.
@@ -170,13 +167,13 @@ function CreateNewContact(props) {
 
                             <div className="field">
                                 <label className="label">Email</label>
-                                <div className="control has-icons-left has-icons-right">
+                                <div className="control has-icons-left">
                                     <input className={`input ${isEmailValid ? '' : 'is-danger'}`}
                                            placeholder="Ex. abc@gmail.com" type="email"
                                            name="email" onChange={handleChange} value={state.email}/>
                                     <span className="icon is-small is-left">
-                                            <i className="fas fa-envelope"></i>
-                                        </span>
+                                        <i className="fas fa-envelope"></i>
+                                    </span>
                                 </div>
                                 <p className={`help is-danger ${isEmailValid ? 'is-hidden' : ''}`}>
                                     This email is invalid.
@@ -185,13 +182,13 @@ function CreateNewContact(props) {
 
                             <div className="field">
                                 <label className="label">Facebook</label>
-                                <div className="control has-icons-left has-icons-right">
+                                <div className="control has-icons-left">
                                     <input className={`input ${isFacebookValid ? '' : 'is-danger'}`}
                                            placeholder="Ex. https://facebook.com/sample.acc" name="facebook"
                                            value={state.facebook} onChange={handleChange}/>
                                     <span className="icon is-small is-left">
-                                            <i className="fab fa-facebook"></i>
-                                        </span>
+                                        <i className="fab fa-facebook"></i>
+                                    </span>
                                 </div>
                                 <p className={`help is-danger ${isFacebookValid ? 'is-hidden' : ''}`}>
                                     The facebook account is invalid.
@@ -200,7 +197,7 @@ function CreateNewContact(props) {
 
                             <div className="field">
                                 <label className="label">Twitter</label>
-                                <div className="control has-icons-left has-icons-right">
+                                <div className="control has-icons-left">
                                     <input
                                         className={`input ${isTwitterValid ? '' : 'is-danger'}`}
                                         placeholder="Ex. @example" name="twitter"
@@ -216,7 +213,7 @@ function CreateNewContact(props) {
 
                             <div className="field">
                                 <label className="label">Category name</label>
-                                <div className="control has-icons-left has-icons-right">
+                                <div className="control has-icons-left">
                                     <input
                                         className="input" placeholder="Ex. Friends" name="categoryName"
                                         value={state.categoryName} onChange={handleChange}/>

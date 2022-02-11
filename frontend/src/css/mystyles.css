@@ -42,3 +42,42 @@
 .navbar-item.has-dropdown:hover .navbar-link {
     color: black !important;
 }
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 320px) {
+    .padding-small-mobile {
+        padding: 1rem !important;
+    }
+}
+
+.contact-card-panel {
+    width: 23%;
+    margin: .7rem;
+}
+
+@media screen and (max-width: 768px) {
+    .contact-card-panel {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+    .contact-card-panel {
+        width: 45%;
+    }
+}
+
+.mark-contact-button {
+    position: absolute;
+    top: 0;
+    right: 5%;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.position-relative {
+    position: relative;
+}

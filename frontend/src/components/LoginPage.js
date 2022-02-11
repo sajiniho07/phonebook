@@ -45,6 +45,7 @@ function LoginPage(props) {
                 }
             })
             .catch(error => {
+                toast.error("A bad request was received.");
                 setIsLoading(false);
                 console.log(error);
             });
@@ -59,7 +60,7 @@ function LoginPage(props) {
                         <div className="notification is-light">
                             <div className="field">
                                 <label className="label">Username or Email</label>
-                                <p className="control has-icons-left has-icons-right">
+                                <p className="control has-icons-left">
                                     <input className="input" placeholder="Username" name="username"
                                            value={state.username} onChange={handleChange}/>
                                     <span className="icon is-small is-left">

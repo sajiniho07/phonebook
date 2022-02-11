@@ -16,7 +16,6 @@ public class PhoneContactInfo {
     private String twitter;
     private String categoryName;
     private Boolean isMarked;
-    private String numberType;
     private String photoData;
     private ObjectId createdBy;
     private Date createdAt;
@@ -35,7 +34,6 @@ public class PhoneContactInfo {
         this.twitter = doc.getString("twitter");
         this.categoryName = doc.getString("categoryName");
         this.isMarked = doc.getBoolean("isMarked");
-        this.numberType = doc.getString("numberType");
         this.photoData = doc.getString("photoData");
         this.createdBy = doc.getObjectId("createdBy");
         this.createdAt = doc.getDate("createdAt");
@@ -44,7 +42,7 @@ public class PhoneContactInfo {
     }
 
     public PhoneContactInfo(ObjectId id, String name, String email, String phoneNumber, String facebook, String twitter,
-                            String categoryName, Boolean isMarked, String numberType, String photoData) {
+                            String categoryName, Boolean isMarked, String photoData) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -53,7 +51,6 @@ public class PhoneContactInfo {
         this.twitter = twitter;
         this.categoryName = categoryName;
         this.isMarked = isMarked;
-        this.numberType = numberType;
         this.photoData = photoData;
     }
 
@@ -121,14 +118,6 @@ public class PhoneContactInfo {
         isMarked = marked;
     }
 
-    public String getNumberType() {
-        return numberType;
-    }
-
-    public void setNumberType(String numberType) {
-        this.numberType = numberType;
-    }
-
     public String getPhotoData() {
         return photoData;
     }
@@ -173,7 +162,7 @@ public class PhoneContactInfo {
         if (name == null || name.trim().isEmpty()) {
             return new GeneralResult(AlertEnum.ERROR.getId(), "Invalid name.");
         }
-        if (!StringHelper.checkValidateEmail(email)) {
+        if (email != null && !email.isEmpty() && !StringHelper.checkValidateEmail(email)) {
             return new GeneralResult(AlertEnum.ERROR.getId(), "Invalid email.");
         }
         if (!StringHelper.checkValidateNumber(phoneNumber)) {
@@ -191,7 +180,6 @@ public class PhoneContactInfo {
         doc.append("twitter", twitter);
         doc.append("categoryName", categoryName);
         doc.append(" isMarked",  isMarked);
-        doc.append("numberType", numberType);
         doc.append("photoData", photoData);
         doc.append("createdBy", createdBy);
         doc.append("createdAt", createdAt);

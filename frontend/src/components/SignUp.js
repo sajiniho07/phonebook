@@ -115,6 +115,7 @@ function SignUp(props) {
                 }
             })
             .catch(error => {
+                toast.error("A bad request was received.");
                 setIsLoading(false);
                 console.log(error);
             });
@@ -138,7 +139,7 @@ function SignUp(props) {
 
                             <div className="field">
                                 <label className="label">Username</label>
-                                <div className="control has-icons-left has-icons-right">
+                                <div className="control has-icons-left">
                                     <input className={`input ${isUserNameValid ? '' : 'is-danger'}`}
                                            placeholder="Ex. Ralf_45" name="username"
                                            value={state.username} onChange={handleChange}/>
@@ -153,7 +154,7 @@ function SignUp(props) {
 
                             <div className="field">
                                 <label className="label">Password</label>
-                                <div className="control has-icons-left has-icons-right">
+                                <div className="control has-icons-left">
                                     <input className={`input ${isPasswordValid ? '' : 'is-danger'}`}
                                            placeholder="Password" name="password" type="password"
                                            value={state.password} onChange={handleChange}/>
@@ -168,7 +169,7 @@ function SignUp(props) {
 
                             <div className="field">
                                 <label className="label">Repeat Password</label>
-                                <div className="control has-icons-left has-icons-right">
+                                <div className="control has-icons-left">
                                     <input
                                         className={`input ${isRepeatPasswordValid ? '' : 'is-danger'}`}
                                         placeholder="Password" name="repeatPassword" type="password"
@@ -184,7 +185,7 @@ function SignUp(props) {
 
                             <div className="field">
                                 <label className="label">Email</label>
-                                <div className="control has-icons-left has-icons-right">
+                                <div className="control has-icons-left">
                                     <input className={`input ${isEmailValid ? '' : 'is-danger'}`}
                                            placeholder="Ex. abc@gmail.com" type="email"
                                            name="email" onChange={handleChange} value={state.email}/>
