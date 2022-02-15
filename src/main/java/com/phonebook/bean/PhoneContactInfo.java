@@ -19,7 +19,6 @@ public class PhoneContactInfo {
     private String photoData;
     private ObjectId createdBy;
     private Date createdAt;
-    private ObjectId modifiedBy;
     private Date modifiedAt;
 
     public PhoneContactInfo() {
@@ -37,7 +36,6 @@ public class PhoneContactInfo {
         this.photoData = doc.getString("photoData");
         this.createdBy = doc.getObjectId("createdBy");
         this.createdAt = doc.getDate("createdAt");
-        this.modifiedBy = doc.getObjectId("modifiedBy");
         this.modifiedAt = doc.getDate("modifiedAt");
     }
 
@@ -142,14 +140,6 @@ public class PhoneContactInfo {
         this.createdAt = createdAt;
     }
 
-    public ObjectId getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(ObjectId modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
     public Date getModifiedAt() {
         return modifiedAt;
     }
@@ -179,11 +169,10 @@ public class PhoneContactInfo {
         doc.append("facebook", facebook);
         doc.append("twitter", twitter);
         doc.append("categoryName", categoryName);
-        doc.append(" isMarked",  isMarked);
+        doc.append("isMarked", isMarked);
         doc.append("photoData", photoData);
         doc.append("createdBy", createdBy);
         doc.append("createdAt", createdAt);
-        doc.append("modifiedBy", modifiedBy);
         doc.append("modifiedAt", modifiedAt);
         return doc;
     }

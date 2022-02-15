@@ -1,16 +1,19 @@
 package com.phonebook.dao;
 
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Sorts;
 import com.phonebook.bean.GeneralResult;
 import com.phonebook.bean.PhoneContactInfo;
 import com.phonebook.helper.AlertEnum;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 public class PhoneContactDao extends DatabaseManager {
@@ -29,7 +32,6 @@ public class PhoneContactDao extends DatabaseManager {
         Date serverDate = new Date();
         if (phoneContactInfo.getId() != null) {
             phoneContactInfo.setModifiedAt(serverDate);
-            phoneContactInfo.setModifiedBy(currentUserId);
             ObjectId contactId = phoneContactInfo.getId();
             phoneContactCollection.findOneAndReplace(eq("_id", contactId), phoneContactInfo.generateDocument());
             result.setResultCode(AlertEnum.SUCCESS.getId());
@@ -46,8 +48,21 @@ public class PhoneContactDao extends DatabaseManager {
 
     public List<PhoneContactInfo> getContacts(String searchContent, Integer orderBy, Integer filterTypeId, String categoryName) {
         List<PhoneContactInfo> result = new ArrayList<>();
+        ObjectId currentUserId = UserOwnerDao.getCurrentUserId();
+        if (currentUserId == null) {
+            return result;
+        }
         MongoCursor<Document> iterator;
-        iterator = phoneContactCollection.find().iterator();
+        Bson sort = Sorts.ascending("name");
+        if (orderBy.equals(1)) {
+            sort = Sorts.descending("name");
+        }
+        Bson[] conditions = {eq("createdBy", currentUserId)};
+        if (searchContent != null && !searchContent.trim().isEmpty()) {
+            String searchContentT = searchContent.trim();
+            conditions[1] = eq("name", searchContentT); // todo contains name or phoneNumber
+        }
+        iterator = phoneContactCollection.find(and(conditions)).sort(sort).iterator();
         try {
             while (iterator.hasNext()) {
                 result.add(new PhoneContactInfo(iterator.next()));

@@ -2,10 +2,11 @@ import React from "react";
 
 function ContactCard(props) {
 
+    const contactInfo = props.contactInfo;
     return (<>
             <div className="card contact-card-panel">
                 <div className="card-content position-relative">
-                    <span className="mark-contact-button fas fa-bookmark is-size-3"></span>
+                    <span className={`mark-contact-button fas fa-bookmark is-size-3 ${contactInfo.marked ? 'has-text-info' : ''}`}></span>
                     <div className="media">
                         <div className="media-left">
                             <figure className="image is-48x48">
@@ -13,9 +14,9 @@ function ContactCard(props) {
                             </figure>
                         </div>
                         <div className="media-content">
-                            <p className="title is-4 has-text-black">John Smith</p>
+                            <p className="title is-4 has-text-black text-ellipsis">{contactInfo.name}</p>
                             <p className="subtitle is-6 has-text-black is-flex-row-space">
-                                <span>09027992050</span>
+                                <span>{contactInfo.phoneNumber}</span>
                                 <a className="fas fa-address-book"></a>
                             </p>
                         </div>
@@ -23,19 +24,39 @@ function ContactCard(props) {
                     <div className="content">
                         <div className="is-flex-row-center">
                             <span className="fas fa-envelope mr-2"></span>
-                            <span>ooo@gmail.com</span>
+                            {
+                                (contactInfo.email) ?
+                                    <span>{contactInfo.email}</span>
+                                :
+                                    <span className="tag is-warning">Nothing recorded.</span>
+                            }
                         </div>
                         <div className="is-flex-row-center">
                             <span className="fab fa-facebook mr-2"></span>
-                            <span>ooo@facebook.com</span>
+                            {
+                                (contactInfo.facebook) ?
+                                    <span>{contactInfo.facebook}</span>
+                                    :
+                                    <span className="tag is-warning">Nothing recorded.</span>
+                            }
                         </div>
                         <div className="is-flex-row-center">
                             <span className="fab fa-twitter mr-2"></span>
-                            <span className="tag is-warning">Nothing recorded.</span>
+                            {
+                                (contactInfo.twitter) ?
+                                    <span>{contactInfo.twitter}</span>
+                                    :
+                                    <span className="tag is-warning">Nothing recorded.</span>
+                            }
                         </div>
                         <div className="is-flex-row-center">
                             <span className="fas fa-flag mr-2"></span>
-                            <span className="tag is-info">category</span>
+                            {
+                                (contactInfo.categoryName) ?
+                                    <span>{contactInfo.categoryName}</span>
+                                    :
+                                    <span className="tag is-warning">Nothing recorded.</span>
+                            }
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import AppNavBar from "./AppNavBar";
 import ContactCard from "./ContactCard";
 import axios from "axios";
@@ -7,6 +7,7 @@ import {toast} from "react-toastify";
 
 function Contacts(props) {
 
+    const [contacts, setContacts] = React.useState([]);
     const [state, setState] = React.useState({
         searchContent: "",
         orderBy: 1,
@@ -14,6 +15,10 @@ function Contacts(props) {
         categoryName: "",
     });
     const [isLoading, setIsLoading] = React.useState(false);
+
+    useEffect(() => {
+        getContacts();
+    }, []);
 
     function handleChange(e) {
         const target = e.target;
@@ -37,12 +42,8 @@ function Contacts(props) {
                 }))
             .then(response => {
                 setIsLoading(false);
-                let resultCode = response.data.resultCode;
-                if (resultCode > 0) {
-                    toast.success(response.data.resultText);
-                } else {
-                    toast.error(response.data.resultText);
-                }
+                let resultData = response.data;
+                setContacts(resultData);
             })
             .catch(error => {
                 toast.error("A bad request was received.");
@@ -118,11 +119,9 @@ function Contacts(props) {
                     </div>
                     <hr/>
                     <div className="is-flex-tablet flex-wrap">
-                        <ContactCard/>
-                        <ContactCard/>
-                        <ContactCard/>
-                        <ContactCard/>
-                        <ContactCard/>
+                        {contacts.map(conInfo => (
+                            <ContactCard key={conInfo.id} contactInfo={conInfo}/>
+                        ))}
                     </div>
                 </div>
             </div>

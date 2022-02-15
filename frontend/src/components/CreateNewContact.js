@@ -41,7 +41,7 @@ function CreateNewContact(props) {
                 facebook: detail.facebook,
                 twitter: detail.twitter,
                 categoryName: detail.categoryName,
-                isMarked: detail.isMarked,
+                isMarked: detail.marked,
                 photoData: detail.photoData
             });
         }
